@@ -7,8 +7,8 @@ exports.example = () => 'hello world';
 
 /**
  * Filter array of objects by filterProporties
- * @param filterProperties array keys of proporties for filter from arrayObj
- * @param arrayObj array of objects
+ * @param {Array<string>} filterProperties array keys of proporties for filter from arrayObj
+ * @param {Array} arrayObj array of objects
  * @returns filtred array of Objects
  */
 exports.stripPrivateProperties = (filterProperties = [], arrayObj = []) => {
@@ -27,8 +27,8 @@ exports.stripPrivateProperties = (filterProperties = [], arrayObj = []) => {
 
 /**
  * Return new array of Objects which not include property 
- * @param property property name which will be exclude
- * @param arrayObjs array of objects
+ * @param {string} property property name which will be exclude
+ * @param {Array} arrayObjs array of objects
  * @returns filtred array of Objects
  */
 exports.excludeByProperty = (property, arrayObjs = []) => {
@@ -44,7 +44,7 @@ exports.excludeByProperty = (property, arrayObjs = []) => {
 
 /**
  * SumDeep val proporites in objects
- * @param objects e.g. [{objects:[{val:1},{val:2}]}]
+ * @param {Array} objects e.g. [{objects:[{val:1},{val:2}]}]
  * @returns {Object} e.g [{objects:3}]
  */
 exports.sumDeep = (objects = []) => {
@@ -60,7 +60,7 @@ exports.sumDeep = (objects = []) => {
 
 /**
  * Map statusColor Object to status color
- * @param statusColors e.g. {red:[101,202]}
+ * @param {Object} statusColors e.g. {red:[101,202]}
  * @returns {Object} e.g {101:'red',202:'red'}
  */
 const mapStatusColor = (statusColors = {}) => {
@@ -76,8 +76,8 @@ const mapStatusColor = (statusColors = {}) => {
 
 /**
  * Apply proper Color to Status  code.
- * @param statusColors e.g. { red: [404, 400], green: [200, 201] } 
- * @param statuses e.g. [ { status: 404 } ]
+ * @param {Object} statusColors e.g. { red: [404, 400], green: [200, 201] } 
+ * @param {Array} statuses e.g. [ { status: 404 } ]
  * @returns {Object} e.g. [ { status: 404 , color:'red' } ]
  */
 exports.applyStatusColor = (statusColors = {}, statuses = []) => {
@@ -93,8 +93,8 @@ exports.applyStatusColor = (statusColors = {}, statuses = []) => {
 
 /**
  * Function for create generic function greeting
- * @param greetFunc function for greeting(greetingString,name)
- * @param greetingString string which will be use for greeting
+ * @param {Function} greetFunc function for greeting(greetingString,name)
+ * @param {string} greetingString string which will be use for greeting
  */
 exports.createGreeting = (greetFunc, greetingString = "") =>
     (name) => greetFunc(greetingString, name);
@@ -113,8 +113,8 @@ exports.setDefaults = (defaultProporties = {}) => (obj = {}) =>
 
 /**
  * Fetch proper Object by User
- * @param userName user Name   
- * @param serivces : { fetchStatus, fetchUsers, fetchCompanyById  } its from p7.js
+ * @param {string} userName user Name   
+ * @param {Object} services : { fetchStatus, fetchUsers, fetchCompanyById  } its from p7.js
  * @returns {Object} e.g. 
  * {
  *  status: { time: Date , ok:true },
