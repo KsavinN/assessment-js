@@ -5,21 +5,48 @@
  */
 exports.example = () => 'hello world';
 
-exports.stripPrivateProperties = (filterProporties = [], arrayObj = []) => {
-    if (!filterProporties || filterProporties.length < 1) {
+/**
+ * Filter array of objects by filterProporties
+ * @param filterProperties array keys of proporties for filter from arrayObj
+ * @param arrayObj array of objects
+ * @returns filtred array of Objects
+ */
+exports.stripPrivateProperties = (filterProperties = [], arrayObj = []) => {
+    if (!filterProperties || filterProperties.length < 1) {
         return arrayObj;
     };
-    return arrayObj.map(obj => {
-        filterProporties.forEach(filter => delete obj[filter]);
-        return obj;
-    });
+    try {
+        return arrayObj.map(obj => {
+            filterProperties.forEach(filter => delete obj[filter]);
+            return obj;
+        });
+    } catch (error) {
+        console.error(error.message);
+    }
 }
+
+/**
+ * Return new array of Objects which not include property 
+ * @param property property name which will be exclude
+ * @param arrayObjs array of objects
+ * @returns filtred array of Objects
+ */
 exports.excludeByProperty = (property, arrayObjs = []) => {
     if (!property) {
         return arrayObjs;
     };
-    return arrayObjs.filter(obj => !Object.keys(obj).includes(property));
+    try {
+        return arrayObjs.filter(obj => !Object.keys(obj).includes(property));
+    } catch (error) {
+        console.error(error.message);
+    }
 };
+
+/**
+ * SumDeep val proporites in objects
+ * @param objects e.g. [{objects:[{val:1},{val:2}]}]
+ * @returns {Object} e.g [{objects:3}]
+ */
 exports.sumDeep = (objects = []) => {
     if (!objects) {
         return 0;
@@ -40,12 +67,19 @@ const mapStatusColor = (statusColors = {}) => {
     const mappedStatusColor = {};
     Object.keys(statusColors).forEach((color) =>
         statusColors[color].forEach(status => {
-            mappedStatusColor[status] = !mappedStatusColor[status] ? color : mappedStatusColor[status]
+            mappedStatusColor[status] = color;
         })
     );
     return mappedStatusColor;
-}
+};
 
+
+/**
+ * Apply proper Color to Status  code.
+ * @param statusColors e.g. { red: [404, 400], green: [200, 201] } 
+ * @param statuses e.g. [ { status: 404 } ]
+ * @returns {Object} e.g. [ { status: 404 , color:'red' } ]
+ */
 exports.applyStatusColor = (statusColors = {}, statuses = []) => {
     const mappedStatusToColor = mapStatusColor(statusColors);
     return statuses.filter(({ status }) => mappedStatusToColor[status])
@@ -57,15 +91,37 @@ exports.applyStatusColor = (statusColors = {}, statuses = []) => {
         )
 };
 
+/**
+ * Function for create generic function greeting
+ * @param greetFunc function for greeting(greetingString,name)
+ * @param greetingString string which will be use for greeting
+ */
 exports.createGreeting = (greetFunc, greetingString = "") =>
     (name) => greetFunc(greetingString, name);
 
+/**
+ * Function which return function for apply deafultsProporties
+ * @param defaultProporties default props to attach in obj
+ * @returns {Function} 
+ */
 exports.setDefaults = (defaultProporties = {}) => (obj = {}) =>
     ({
         ...defaultProporties,
         ...obj
     });
 
+
+/**
+ * Fetch proper Object by User
+ * @param userName user Name   
+ * @param serivces : { fetchStatus, fetchUsers, fetchCompanyById  } its from p7.js
+ * @returns {Object} e.g. 
+ * {
+ *  status: { time: Date , ok:true },
+ *  user: { name: 'steve', companyId: 1 }
+ *  company : { id: 1, name: 'fox' }
+ * }
+ */
 exports.fetchUserByNameAndUsersCompany = (userName = "", { fetchStatus, fetchUsers, fetchCompanyById }) => {
     if (!userName) {
         return;
@@ -87,7 +143,4 @@ exports.fetchUserByNameAndUsersCompany = (userName = "", { fetchStatus, fetchUse
         e => console.error(e)
     );
 };
-
-
-
 
