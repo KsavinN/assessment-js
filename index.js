@@ -38,8 +38,8 @@ exports.sumDeep = (objects = []) => {
  */
 const mapStatusColor = (statusColors = {}) => {
     const mappedStatusColor = {};
-    Object.entries(statusColors).forEach(([color, statuses]) =>
-        statuses.forEach(status => {
+    Object.keys(statusColors).forEach((color) =>
+        statusColors[color].forEach(status => {
             mappedStatusColor[status] = !mappedStatusColor[status] ? color : mappedStatusColor[status]
         })
     );
