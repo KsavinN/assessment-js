@@ -26,7 +26,8 @@ exports.stripPrivateProperties = (filterProperties = [], arrayObj = []) => {
 }
 
 /**
- * Return new array of Objects which not include property 
+ * Return new array of Objects 
+ * which only include objects that do not have a given property 
  * @param {string} property property name which will be exclude
  * @param {Array} arrayObjs array of objects
  * @returns filtred array of Objects
